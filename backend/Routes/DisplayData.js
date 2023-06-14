@@ -1,14 +1,30 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const db = require('../db');
+const router = express.Router();
 
-router.post('/foodData', (req,res)=>{
-    try{
-        console.log(global.products)
-        res.send(global.products)
-    } catch(error){
+router.get('/foodData', async (req, res) => {
+    try {
+        const result = await db.connection.db
+            .collection('products')
+            .find()
+            .toArray();
+        res.json(result);
+    } catch (error) {
         console.log(error.message);
-        res.send("Server Error")
+        res.send('Server Error');
     }
-})
+});
+
+router.post('/foodData', async (req, res) => {
+    try {
+        const result = await db.connection.db
+            .collection('products')
+            .insertOne(req.body);
+        res.json(result);
+    } catch (e) {
+        console.log(e);
+        res.send('error');
+    }
+});
 
 module.exports = router;
