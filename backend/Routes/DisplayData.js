@@ -2,12 +2,21 @@ const express = require('express');
 const db = require('../db');
 const router = express.Router();
 
-router.get('/foodData', async (req, res) => {
+router.get('/foodData/:category', async (req, res) => {
     try {
-        const result = await db.connection.db
-            .collection('products')
-            .find()
-            .toArray();
+        const category = req.params.category;
+        let result;
+        if (category === 'All') {
+            result = await db.connection.db
+                .collection('products')
+                .find()
+                .toArray();
+        } else {
+            result = await db.connection.db
+                .collection('products')
+                .find({ category })
+                .toArray();
+        }
         res.json(result);
     } catch (error) {
         console.log(error.message);
