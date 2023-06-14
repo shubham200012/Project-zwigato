@@ -24,6 +24,24 @@ router.get('/foodData/:category', async (req, res) => {
     }
 });
 
+router.get('/foodData/product/:id', async (req, res) => {
+    const productid = parseInt(req.params.id);
+    const product = await db.connection.db
+        .collection('products')
+        .findOne({ productid });
+    if (product) {
+        res.json({
+            status: 200,
+            data: product,
+        });
+    } else {
+        res.json({
+            status: 404,
+            message: 'Product not found',
+        });
+    }
+});
+
 router.post('/foodData', async (req, res) => {
     try {
         const result = await db.connection.db
