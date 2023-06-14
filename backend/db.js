@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb+srv://ShubhamSonboir:ALDROWAND@cluster0.uni29ss.mongodb.net/Zwigato?retryWrites=true&w=majority'
+// const mongoURI = 'mongodb+srv://ShubhamSonboir:ALDROWAND@cluster0.uni29ss.mongodb.net/Zwigato?retryWrites=true&w=majority'
+const mongoURI = 'mongodb://127.0.0.1:27017/Zwigato'
 mongoose.set("strictQuery", false);
 const mongoDB = async() =>{
     
